@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import './App.css';
-import Navbar from './containers/Navbar'
+import NavigationBar from './containers/NavigationBar'
 import Home from './components/Home'
 import Login from './containers/Login'
 import Doctor from './containers/Doctor'
 import PatientDash from './components/PatientDash'
 import PatientForm from './containers/PatientForm'
-import {Route, Switch} from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 import { withRouter } from 'react-router'
 
 class App extends Component {
@@ -20,6 +20,30 @@ class App extends Component {
 
   }
 
+  handleUserSignIn = (e) => {
+  fetch('http://localhost:3000/signin', {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    },
+    body: JSON.stringify({
+      email: this.state.email,
+      password: this.state.password
+    })
+  })
+  .then(res => res.json())
+  .then(player => {
+    if (player === null) {
+      alert("Username/password combination does not exist!")
+    } else {
+      this.setState({
+        current_user: player
+      })
+    }
+  })
+}
+
 
   handleFormSubmit (e,info, duration, severity){
     e.preventDefault()
@@ -27,12 +51,10 @@ class App extends Component {
     // debugger
     fetch('http://localhost:3000/symptoms', {
       method: 'POST',
-      mode: "cors",
       headers: {
-        "Content-Type": "appliction/json; charset=utf-8",
-        "Accept": "appliction/json"
+        "Content-Type": "application/json"
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(data)
     }).then((response) => response.json())
     .then((symptom) =>{
       this.addNewSymptom(symptom)
@@ -54,23 +76,23 @@ class App extends Component {
   addNewSymptom(newSymptom) {
 
   }
-
-  onSelectPatient = (event) => {
-    let id = parseInt(event.target.dataset.patientId)
-    let newPatient = this.state.allPatients.find(patient => patient.id === id)
-
-    this.setState({
-      selectedPatient: newPatient
-    })
-  }
-
-  setSelectedPatient = (patient) => {
-    if (!this.state.myPatients.includes(patient)){
-      this.setState({
-        myPatients: [...this.state.myPatients, patient]
-      })
-    }
-  }
+  //
+  // onSelectPatient = (event) => {
+  //   let id = parseInt(event.target.dataset.patientId)
+  //   let newPatient = this.state.allPatients.find(patient => patient.id === id)
+  //
+  //   this.setState({
+  //     selectedPatient: newPatient
+  //   })
+  // }
+  //
+  // setSelectedPatient = (patient) => {
+  //   if (!this.state.myPatients.includes(patient)){
+  //     this.setState({
+  //       myPatients: [...this.state.myPatients, patient]
+  //     })
+  //   }
+  // }
 
   // handleRemovePatient = (patientObj) => {
   //   let copyOfMyNaps = [...this.state.myNaps]
@@ -85,7 +107,10 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Navbar />
+        <NavigationBar
+
+
+          />
         <Switch>
 
           <Route path="/patientdash/:id/form" render={() => {
@@ -117,10 +142,10 @@ class App extends Component {
               )
             }} />
 
+
           <Route path="/login" render={() => {
                 return(
                   <Login
-                    patients={this.state.allPatients}
 
                   />
                 )

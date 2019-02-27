@@ -1,1 +1,6 @@
 
+.card {
+        margin: 0 auto; /* Added */
+        float: none; /* Added */
+        margin-top: 15%;
+      }
