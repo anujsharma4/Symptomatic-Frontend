@@ -1,17 +1,21 @@
 import React from 'react'
 import { Button, FormGroup, FormControl, FormLabel, Modal, Form, Card } from "react-bootstrap";
+import {Route, Switch, Redirect, Link} from 'react-router-dom'
 
 
 class Login extends React.Component {
 
   render() {
     return(
+
       <div>
-        <Card style={{width: '40rem'}}>
-          <Form>
+        <Card style={{width: '60rem'}}>
+          <Form
+            onSubmit={(e) => {e.preventDefault(); this.props.handleUserSignIn(e)}}
+          >
             <Form.Group controlId="formBasicEmail">
               <Form.Label>Email address</Form.Label>
-              <Form.Control type="email" placeholder="Enter email" />
+              <Form.Control type="email" placeholder="Enter email" onChange={(e) => this.props.setEmail(e)}/>
               <Form.Text className="text-muted">
                 We'll never share your email with anyone else.
               </Form.Text>
@@ -19,9 +23,10 @@ class Login extends React.Component {
 
             <Form.Group controlId="formBasicPassword">
               <Form.Label>Password</Form.Label>
-              <Form.Control type="password" placeholder="Password" />
+              <Form.Control type="password" placeholder="Password" onChange={(e) => this.props.setPassword(e)}/>
             </Form.Group>
             <Button variant="primary" type="submit">
+            {this.props.currentUser ? <Redirect to= "/" /> : null}
             Submit
             </Button>
           </Form>
@@ -34,6 +39,8 @@ class Login extends React.Component {
 }
 
 export default Login
+
+      // onSubmit={() => {this.props.onLogIn(this.props.email, this.props.password)}}
 
 
 // constructor(props) {

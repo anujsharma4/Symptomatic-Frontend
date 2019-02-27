@@ -16,11 +16,17 @@ class NavigationBar extends React.Component {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
             <Nav.Link href="/">Home</Nav.Link>
-            <Nav.Link href="#link">Dashboard</Nav.Link>
+            {this.props.currentUser ? <Nav.Link href="#link">Dashboard</Nav.Link> : null}
           </Nav>
           <ButtonToolbar>
-            <Button variant="outline-success" href="/login">Login</Button>
-            <Button variant="outline-success">Signup</Button>
+            {this.props.currentUser ?
+              <Button variant="outline-success" href="/login">Logout</Button>
+              :
+              <div>
+              <Button variant="outline-success" href="/login">Login</Button>
+              <Button variant="outline-success">Signup</Button>
+              </div>
+            }
           </ButtonToolbar>
         </Navbar.Collapse>
       </Navbar>

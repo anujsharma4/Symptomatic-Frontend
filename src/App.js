@@ -14,35 +14,39 @@ class App extends Component {
     super(props);
     this.state={
       allPatients: [],
+      email: "",
+      password: "",
+      currentUser: null
 
     };
 
 
   }
 
-  handleUserSignIn = (e) => {
-  fetch('http://localhost:3000/signin', {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "Accept": "application/json"
-    },
-    body: JSON.stringify({
-      email: this.state.email,
-      password: this.state.password
-    })
-  })
-  .then(res => res.json())
-  .then(player => {
-    if (player === null) {
-      alert("Username/password combination does not exist!")
-    } else {
-      this.setState({
-        current_user: player
+  handleUserSignIn = (e, email, password) => {
+    e.preventDefault()
+    let data = {patient: {email: email, password: password}}
+    fetch('http://localhost:3000/signin', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify({
+        email: this.state.email,
+        password: this.state.password
       })
-    }
-  })
+    })
+    .then(res => res.json())
+    .then(patient => {
+      if (patient.error) {
+        alert("Incorrect email or password")
+      } else {
+        this.setState({currentUser: patient})
+      }
+    })
 }
+
 
 
   handleFormSubmit (e,info, duration, severity){
@@ -76,7 +80,27 @@ class App extends Component {
   addNewSymptom(newSymptom) {
 
   }
-  //
+
+  // fetch('http://localhost:3000/signin', {
+  //   method: "POST",
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //     "Accept": "application/json"
+  //   },
+  //   body: JSON.stringify({
+  //     email: this.state.email,
+  //     password: this.state.password
+  //   })
+  // })
+  // .then(res => res.json())
+  // .then(data => {
+  //   if (data.error) {
+  //     alert("Incorrect email or password")
+  //   } else {
+  //     this.setState({currentUser: data.user})
+  //   }
+  // })
+
   // onSelectPatient = (event) => {
   //   let id = parseInt(event.target.dataset.patientId)
   //   let newPatient = this.state.allPatients.find(patient => patient.id === id)
@@ -104,10 +128,23 @@ class App extends Component {
   // }
 
 
+  setEmailState = (e) => {
+    this.setState({
+      email: e.target.value
+    })
+  }
+
+  setPasswordState = (e) => {
+    this.setState({
+      password: e.target.value
+    })
+  }
+
   render() {
     return (
       <div className="App">
         <NavigationBar
+          currentUser={this.state.currentUser}
 
 
           />
@@ -146,7 +183,12 @@ class App extends Component {
           <Route path="/login" render={() => {
                 return(
                   <Login
-
+                    email={this.state.email}
+                    password={this.state.password}
+                    setEmail={this.setEmailState}
+                    setPassword={this.setPasswordState}
+                    handleUserSignIn={this.handleUserSignIn}
+                    currentUser={this.state.currentUser}
                   />
                 )
               }} />
