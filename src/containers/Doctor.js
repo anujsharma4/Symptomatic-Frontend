@@ -1,5 +1,4 @@
 import React from 'react'
-import Patient from './Patient'
 import {Card, Button} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 
