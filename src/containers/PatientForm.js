@@ -1,6 +1,6 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
-import {Form, Button} from 'react-bootstrap'
+import {Redirect} from 'react-router-dom'
+import {Form, Button, Card} from 'react-bootstrap'
 
 
 class PatientForm extends React.Component {
@@ -20,35 +20,41 @@ class PatientForm extends React.Component {
   render() {
     const {info, duration, severity} = this.state
     return (
-      <Form className="patientForm" onSubmit={(e) => this.props.handleSubmit(e, info, duration, severity)}>
-        <Form.Group controlId="symptom">
-          <Form.Label>Symptoms:</Form.Label>
-          <Form.Control name="info" onChange={this.handleOnChange} as="textarea" rows="3" placeholder="Diarrhea, fever, pain, etc..."/>
-        </Form.Group>
-        <Form.Group controlId="duration">
-          <Form.Label>Duration:</Form.Label>
-          <Form.Control name="duration" onChange={this.handleOnChange} type="date" placeholder="MM/DD/YYYY" />
-        </Form.Group>
-        <Form.Group controlId="severity">
-          <Form.Label>Severity</Form.Label>
-          <Form.Control name="severity" onChange={this.handleOnChange} as="select">
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-            <option>6</option>
-            <option>7</option>
-            <option>8</option>
-            <option>9</option>
-            <option>10</option>
-          </Form.Control>
-        </Form.Group>
-        <Button variant="primary" type="submit">
-          Log Symptoms
-        </Button>
-      </Form>
 
+      <div className="form">
+        <Card style={{width: '60rem'}}>
+          <Form className="patientForm" onSubmit={(e) => this.props.handleSubmit(e, info, duration, severity)}>
+            <Form.Group controlId="symptom">
+              <Form.Label>Symptoms:</Form.Label>
+              <Form.Control name="info" onChange={this.handleOnChange} as="textarea" rows="3" placeholder="Diarrhea, fever, pain, etc..."/>
+            </Form.Group>
+            <Form.Group controlId="duration">
+              <Form.Label>Duration:</Form.Label>
+              <Form.Control name="duration" onChange={this.handleOnChange} type="date" placeholder="MM/DD/YYYY" />
+            </Form.Group>
+            <Form.Group controlId="severity">
+              <Form.Label>Severity</Form.Label>
+              <Form.Control name="severity" onChange={this.handleOnChange} as="select">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+                <option>6</option>
+                <option>7</option>
+                <option>8</option>
+                <option>9</option>
+                <option>10</option>
+              </Form.Control>
+            </Form.Group>
+
+              <Button variant="primary" type="submit">
+                Log Symptoms
+              </Button>
+
+          </Form>
+        </Card>
+      </div>
     );
   }
 }

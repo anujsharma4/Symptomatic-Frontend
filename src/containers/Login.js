@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, FormGroup, FormControl, FormLabel, Modal, Form, Card } from "react-bootstrap";
+import { Button, FormGroup, FormControl, FormLabel, Modal, Form, Card, Image } from "react-bootstrap";
 import {Route, Switch, Redirect, Link} from 'react-router-dom'
 
 
@@ -8,7 +8,7 @@ class Login extends React.Component {
   render() {
     return(
 
-      <div>
+      <div className="login">
         <Card style={{width: '60rem'}}>
           <Form
             onSubmit={(e) => {e.preventDefault(); this.props.handleUserSignIn(e)}}
@@ -26,7 +26,7 @@ class Login extends React.Component {
               <Form.Control type="password" placeholder="Password" onChange={(e) => this.props.setPassword(e)}/>
             </Form.Group>
             <Button variant="primary" type="submit">
-            {this.props.currentUser ? <Redirect to= "/" /> : null}
+            {this.props.currentUser ? <Redirect to= {`/patientdash/${this.props.currentUser.id}`} /> : null}
             Submit
             </Button>
           </Form>
@@ -42,6 +42,7 @@ export default Login
 
       // onSubmit={() => {this.props.onLogIn(this.props.email, this.props.password)}}
 
+      // <Image src="https://images.unsplash.com/photo-1520931737576-7d1628862026?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1697&q=80" fluid />
 
 // constructor(props) {
 //   super(props);

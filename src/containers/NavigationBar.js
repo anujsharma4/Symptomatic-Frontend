@@ -1,21 +1,25 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 import Login from './Login'
+import logo from '../images/icon.png'
 import {Navbar, Nav, Form, FormControl, Button, ButtonToolbar, NavItem}  from 'react-bootstrap'
 
 class NavigationBar extends React.Component {
 
 
-
   render() {
     return (
 
-      <Navbar bg="light" expand="lg">
-        <Navbar.Brand href="https://www.webmd.com/">Symptomatic</Navbar.Brand>
+      <Navbar bg="light" expand="lg" sticky="top">
+        <Navbar.Brand href="https://www.webmd.com/">
+
+            <img src={logo} style={{width:30, height: 30}} />
+
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-            <Nav.Link href="/">Home</Nav.Link>
+              <Link to={'/'}><Button variant="light">Home</Button></Link>
             {this.props.currentUser ? <Nav.Link href="#link">Dashboard</Nav.Link> : null}
           </Nav>
           <ButtonToolbar>

@@ -4,6 +4,7 @@ import NavigationBar from './containers/NavigationBar'
 import Home from './components/Home'
 import Login from './containers/Login'
 import Doctor from './containers/Doctor'
+import Symptoms from './components/Symptoms'
 import PatientDash from './components/PatientDash'
 import PatientForm from './containers/PatientForm'
 import { Route, Switch } from 'react-router-dom'
@@ -14,6 +15,7 @@ class App extends Component {
     super(props);
     this.state={
       allPatients: [],
+      allSymptoms: [],
       email: "",
       password: "",
       currentUser: null
@@ -47,11 +49,24 @@ class App extends Component {
     })
 }
 
+addNewSymptom = (symptoms) => {
+  const symptomscopy = this.state.currentUser.symptoms.slice()
+  symptomscopy.push(symptoms)
+  this.props.history.push(`/patientdash/${this.state.currentUser.id}`)
+
+  // debugger
+  this.setState({
+    currentUser: {
+      ...this.state.currentUser,
+      symptoms: symptomscopy}
+  })
+}
 
 
-  handleFormSubmit (e,info, duration, severity){
+  handleFormSubmit = (e,info, duration, severity) => {
     e.preventDefault()
-    let data = {symptoms: {info: info, duration: duration, severity: severity} }
+
+    let data = {symptoms: {info: info, duration: duration, severity: severity, patient_id: this.state.currentUser.id} }
     // debugger
     fetch('http://localhost:3000/symptoms', {
       method: 'POST',
@@ -59,9 +74,11 @@ class App extends Component {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(data)
-    }).then((response) => response.json())
-    .then((symptom) =>{
-      this.addNewSymptom(symptom)
+    }).then((res) => res.json())
+    .then(symptoms => {
+      // debugger
+      this.addNewSymptom(symptoms)
+
     })
   }
 
@@ -75,57 +92,16 @@ class App extends Component {
         allPatients: patientArray
       })
     })
+    console.log('im fetching symptoms')
+    fetch('http://localhost:3000/symptoms')
+    .then(res => res.json())
+    .then(symptomArray => {
+      this.setState({
+        allSymptoms: symptomArray
+      })
+    })
   }
 
-  addNewSymptom(newSymptom) {
-
-  }
-
-  // fetch('http://localhost:3000/signin', {
-  //   method: "POST",
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //     "Accept": "application/json"
-  //   },
-  //   body: JSON.stringify({
-  //     email: this.state.email,
-  //     password: this.state.password
-  //   })
-  // })
-  // .then(res => res.json())
-  // .then(data => {
-  //   if (data.error) {
-  //     alert("Incorrect email or password")
-  //   } else {
-  //     this.setState({currentUser: data.user})
-  //   }
-  // })
-
-  // onSelectPatient = (event) => {
-  //   let id = parseInt(event.target.dataset.patientId)
-  //   let newPatient = this.state.allPatients.find(patient => patient.id === id)
-  //
-  //   this.setState({
-  //     selectedPatient: newPatient
-  //   })
-  // }
-  //
-  // setSelectedPatient = (patient) => {
-  //   if (!this.state.myPatients.includes(patient)){
-  //     this.setState({
-  //       myPatients: [...this.state.myPatients, patient]
-  //     })
-  //   }
-  // }
-
-  // handleRemovePatient = (patientObj) => {
-  //   let copyOfMyNaps = [...this.state.myNaps]
-  //   let index = copyOfMyNaps.findIndex(nap => nap === napObj)
-  //   copyOfMyNaps.splice(index, 1)
-  //   this.setState({
-  //     myNaps: copyOfMyNaps
-  //   })
-  // }
 
 
   setEmailState = (e) => {
@@ -154,7 +130,7 @@ class App extends Component {
               return(
                 <PatientForm
                   handleSubmit={this.handleFormSubmit}
-
+                  currentUser={this.state.currentUser}
                   />
               )
             }} />
@@ -163,6 +139,7 @@ class App extends Component {
                 <PatientDash
                   {...props}
                   patients={this.state.allPatients}
+
 
                 />
               )
@@ -174,6 +151,7 @@ class App extends Component {
               return(
                 <Doctor
                   patients={this.state.allPatients}
+
 
                 />
               )
@@ -212,3 +190,30 @@ class App extends Component {
 }
 
 export default withRouter(App);
+
+
+// onSelectPatient = (event) => {
+//   let id = parseInt(event.target.dataset.patientId)
+//   let newPatient = this.state.allPatients.find(patient => patient.id === id)
+//
+//   this.setState({
+//     selectedPatient: newPatient
+//   })
+// }
+//
+// setSelectedPatient = (patient) => {
+//   if (!this.state.myPatients.includes(patient)){
+//     this.setState({
+//       myPatients: [...this.state.myPatients, patient]
+//     })
+//   }
+// }
+
+// handleRemovePatient = (patientObj) => {
+//   let copyOfMyNaps = [...this.state.myNaps]
+//   let index = copyOfMyNaps.findIndex(nap => nap === napObj)
+//   copyOfMyNaps.splice(index, 1)
+//   this.setState({
+//     myNaps: copyOfMyNaps
+//   })
+// }

@@ -17,3 +17,56 @@
 form {
   margin: 5%
 }
+
+/* .justify{
+  text-align: justify;
+  margin: 0;
+  margin-left: auto;
+  width: 38em;
+} */
+
+.home {
+  /* The image used */
+  background: url("./images/patient.jpeg") no-repeat center center fixed;
+  background-size: cover;
+  height: 1000px;
+  background-repeat: no-repeat;
+
+
+}
+
+.patient {
+  /* The image used */
+  background: url("./images/patient1.jpeg") no-repeat center center fixed;
+  background-size: cover;
+  height: 100%;
+  overflow: hidden;
+
+}
+
+.doctor {
+  /* The image used */
+  background: url("./images/doctor.jpeg") no-repeat center center fixed;
+  background-size: cover;
+  height: 100%;
+  overflow: hidden;
+
+}
+
+.form {
+  /* The image used */
+  background: url("./images/form.jpeg") no-repeat center center fixed;
+  background-size: cover;
+  height: 1000px;
+  overflow: hidden;
+
+}
+
+.login {
+  /* The image used */
+  background: url("./images/login.jpeg") no-repeat center center fixed;
+  background-size: cover;
+  height: 1000px;
+  overflow: hidden;
+
+}

@@ -4,7 +4,7 @@ import logo from '../images/logo.png'
 
 const Home = (props) => {
   return(
-    <div className="homepic">
+    <div className="home">
       <img className="homepic" alt="logo" src={logo}/>
     </div>
   )
