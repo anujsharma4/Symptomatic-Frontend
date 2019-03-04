@@ -2,7 +2,7 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 import Login from './Login'
 import logo from '../images/icon.png'
-import {Navbar, Nav, Form, FormControl, Button, ButtonToolbar, NavItem}  from 'react-bootstrap'
+import {Navbar, Nav, Button, ButtonToolbar}  from 'react-bootstrap'
 
 class NavigationBar extends React.Component {
 

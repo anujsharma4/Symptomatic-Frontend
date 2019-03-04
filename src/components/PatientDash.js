@@ -1,14 +1,19 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 import Symptoms from './Symptoms'
-import {Card, Button, ListGroup, ListGroupItem, Table} from 'react-bootstrap'
+import {Card, Button, ListGroup, ListGroupItem} from 'react-bootstrap'
 
 class PatientDash extends React.Component {
 
+
+
   render() {
-    console.log('im going to render a patient page')
-      const patientId = parseInt(this.props.match.params.id)
-      const patient = this.props.patients.find(patient => patient.id === patientId)
+    console.log(this.props.patients)
+    // debugger
+    let patient = this.props.patients.length > 0 ? this.props.patients.find(patient => patient.id === parseInt(this.props.match.params.id))
+                                                  :
+                                                  null
+                                                
     return (
       this.props.patients.length > 0 ?
 

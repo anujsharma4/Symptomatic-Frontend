@@ -25,6 +25,10 @@ form {
   width: 38em;
 } */
 
+.homepic {
+  padding-top: 30%;
+}
+
 .home {
   /* The image used */
   background: url("./images/patient.jpeg") no-repeat center center fixed;

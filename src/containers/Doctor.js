@@ -1,5 +1,5 @@
 import React from 'react'
-import {Card, Button, Container, Row, Col} from 'react-bootstrap'
+import {Card, Button, Container} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 
 

@@ -23,7 +23,7 @@ class PatientForm extends React.Component {
 
       <div className="form">
         <Card style={{width: '60rem'}}>
-          <Form className="patientForm" onSubmit={(e) => this.props.handleSubmit(e, info, duration, severity)}>
+          <Form className="patientForm" onSubmit={(e) => this.props.handleSubmit(e, info, duration, severity, this.props.patientId)}>
             <Form.Group controlId="symptom">
               <Form.Label>Symptoms:</Form.Label>
               <Form.Control name="info" onChange={this.handleOnChange} as="textarea" rows="3" placeholder="Diarrhea, fever, pain, etc..."/>
@@ -35,6 +35,7 @@ class PatientForm extends React.Component {
             <Form.Group controlId="severity">
               <Form.Label>Severity</Form.Label>
               <Form.Control name="severity" onChange={this.handleOnChange} as="select">
+                <option>N/A</option>
                 <option>1</option>
                 <option>2</option>
                 <option>3</option>
