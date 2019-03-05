@@ -1,4 +1,10 @@
 
+
+.jumbotron {
+    opacity: 0.8;
+}
+
+
 .card {
         margin: 0 auto;
         float: none;
@@ -26,7 +32,7 @@ form {
 } */
 
 .homepic {
-  padding-top: 30%;
+  padding-top: 10%;
 }
 
 .home {
@@ -69,6 +75,15 @@ form {
 .login {
   /* The image used */
   background: url("./images/login.jpeg") no-repeat center center fixed;
+  background-size: cover;
+  height: 1000px;
+  overflow: hidden;
+
+}
+
+.doctorlogin {
+  /* The image used */
+  background: url("./images/doctorlogin2.jpeg") no-repeat center center fixed;
   background-size: cover;
   height: 1000px;
   overflow: hidden;

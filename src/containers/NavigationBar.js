@@ -27,8 +27,8 @@ class NavigationBar extends React.Component {
               <Button variant="outline-success" href="/login">Logout</Button>
               :
               <div>
-              <Button variant="outline-success" href="/login">Login</Button>
-              <Button variant="outline-success">Signup</Button>
+              <Button variant="outline-success" href="/login">Patient Login</Button>
+              <Button variant="outline-success" href="/doctorlogin">Doctor Login</Button>
               </div>
             }
           </ButtonToolbar>

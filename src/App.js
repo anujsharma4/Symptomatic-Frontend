@@ -3,11 +3,12 @@ import './App.css';
 import NavigationBar from './containers/NavigationBar'
 import Home from './components/Home'
 import Login from './containers/Login'
+import DoctorLogin from './containers/DoctorLogin'
 import Doctor from './containers/Doctor'
 import PatientDash from './components/PatientDash'
 import PatientForm from './containers/PatientForm'
 import { Route, Switch, Redirect } from 'react-router-dom'
-import { withRouter, matchPath } from 'react-router'
+import { withRouter } from 'react-router'
 
 class App extends Component {
   constructor(props) {
@@ -17,22 +18,18 @@ class App extends Component {
       allSymptoms: [],
       email: "",
       password: "",
-      currentUser: null
+      currentUser: null,
+      currentDoctor: null
 
     }
 
 
   }
 
-  // <Switch>
-// <Route path="/patient" component = {patient}/>
-// </Switch>
-//
-// <Link to="/patient"><Button></Button></Link>
 
   handleUserSignIn = (e, email, password) => {
     e.preventDefault()
-    let data = {patient: {email: email, password: password}}
+    // let data = {patient: {email: email, password: password}}
     fetch('http://localhost:3000/signin', {
       method: "POST",
       headers: {
@@ -54,28 +51,47 @@ class App extends Component {
     })
 }
 
+  handleDoctorSignIn = (e, email, password) => {
+    e.preventDefault()
+    // let data = {patient: {email: email, password: password}}
+    fetch('http://localhost:3000/login', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify({
+        email: this.state.email,
+        password: this.state.password
+      })
+    })
+    .then(res => res.json())
+    .then(doctor => {
+      if (doctor.error) {
+        alert("Incorrect email or password")
+      } else {
+        this.setState({currentDoctor: doctor})
+      }
+    })
+  }
+
+
 addNewSymptom = (symptoms) => {
   let allPatientsCopy = JSON.parse(JSON.stringify(this.state.allPatients))
   let currentPatient = allPatientsCopy.find(patient => patient.id === this.state.currentUser.id)
   currentPatient.symptoms.push(symptoms)
-  // const match = matchPath(`/patientdash/${this.state.currentUser.id}`, {
-  //
-  //     path: `/patientdash/${this.state.currentUser.id}`,
-  //     exact: true,
-  //     strict: false
-  //   })
+
 
   this.setState({
     allPatients: allPatientsCopy
   }
-  // , match
+
   )
 }
 
 
   handleFormSubmit = (e,info, duration, severity, patientId) => {
     e.preventDefault()
-debugger
 
     let data = {symptoms: {info: info, duration: duration, severity: severity, patient_id: patientId}}
     fetch('http://localhost:3000/symptoms', {
@@ -130,7 +146,7 @@ debugger
         <Switch>
 
           <Route path="/patientdash/:id/form" render={(props) => {
-              // debugger
+
               return(
                 <PatientForm
                   patientId={props.match.params.id}
@@ -162,6 +178,19 @@ debugger
                 />
               )
             }} />
+
+          <Route path="/doctorlogin" render={() => {
+                return(
+                  <DoctorLogin
+                    email={this.state.email}
+                    password={this.state.password}
+                    setEmail={this.setEmailState}
+                    setPassword={this.setPasswordState}
+                    handleDoctorSignIn={this.handleDoctorSignIn}
+                    currentDoctor={this.state.currentDoctor}
+                  />
+                )
+              }} />
 
 
           <Route path="/login" render={() => {

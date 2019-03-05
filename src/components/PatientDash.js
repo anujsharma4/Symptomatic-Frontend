@@ -9,11 +9,11 @@ class PatientDash extends React.Component {
 
   render() {
     console.log(this.props.patients)
-    // debugger
+    
     let patient = this.props.patients.length > 0 ? this.props.patients.find(patient => patient.id === parseInt(this.props.match.params.id))
                                                   :
                                                   null
-                                                
+
     return (
       this.props.patients.length > 0 ?
 
