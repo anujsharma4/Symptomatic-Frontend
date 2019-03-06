@@ -21,9 +21,10 @@ class NavigationBar extends React.Component {
           <Nav className="mr-auto">
               <Link to={'/'}><Button variant="light">Home</Button></Link>
             {this.props.currentUser ? <Nav.Link href="#link">Dashboard</Nav.Link> : null}
+            {this.props.currentDoctor ? <Nav.Link href="#link">Patient List</Nav.Link> : null}
           </Nav>
           <ButtonToolbar>
-            {this.props.currentUser ?
+            {this.props.currentUser || this.props.currentDoctor ?
               <Button variant="outline-success" href="/login">Logout</Button>
               :
               <div>
@@ -31,6 +32,7 @@ class NavigationBar extends React.Component {
               <Button variant="outline-success" href="/doctorlogin">Doctor Login</Button>
               </div>
             }
+
           </ButtonToolbar>
         </Navbar.Collapse>
       </Navbar>

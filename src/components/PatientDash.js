@@ -9,7 +9,7 @@ class PatientDash extends React.Component {
 
   render() {
     console.log(this.props.patients)
-    
+
     let patient = this.props.patients.length > 0 ? this.props.patients.find(patient => patient.id === parseInt(this.props.match.params.id))
                                                   :
                                                   null
@@ -31,6 +31,7 @@ class PatientDash extends React.Component {
               <Symptoms
                 symptoms={patient.symptoms}
               />
+            {this.props.currentUser ?
             <Card.Body>
               <Link to={`/patientdash/${patient.id}/form`}>
                 <Button variant="primary">Log Symptom</Button>
@@ -39,6 +40,9 @@ class PatientDash extends React.Component {
                 <Button variant="primary">Notify Medical Professional</Button>
               </Link>
             </Card.Body>
+            :
+            null
+          }
           </Card>
         </div>
         :

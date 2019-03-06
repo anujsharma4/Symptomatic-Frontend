@@ -140,7 +140,7 @@ addNewSymptom = (symptoms) => {
       <div className="App">
         <NavigationBar
           currentUser={this.state.currentUser}
-
+          currentDoctor={this.state.currentDoctor}
 
           />
         <Switch>
@@ -161,6 +161,7 @@ addNewSymptom = (symptoms) => {
                 <PatientDash
                   {...props}
                   patients={this.state.allPatients}
+                  currentUser={this.state.currentUser}
 
 
                 />
