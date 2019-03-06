@@ -7,6 +7,7 @@ import DoctorLogin from './containers/DoctorLogin'
 import Doctor from './containers/Doctor'
 import PatientDash from './components/PatientDash'
 import PatientForm from './containers/PatientForm'
+import Signup from './containers/Signup'
 import { Route, Switch, Redirect } from 'react-router-dom'
 import { withRouter } from 'react-router'
 
@@ -110,6 +111,39 @@ addNewSymptom = (symptoms) => {
   }
 
 
+  // addNewPatient = (patients) => {
+  //   let allPatientsCopy = JSON.parse(JSON.stringify(this.state.allPatients))
+  //   let newPatient = allPatientsCopy.find(patient => patient.id === this.state.newUser.id)
+  //   newPatient.push(patients)
+  //
+  //
+  //   this.setState({
+  //     allPatients: allPatientsCopy
+  //   }
+  //
+  //   )
+  // }
+
+
+    handleSignupSubmit = (e, {name, email, password, age, weight, sex, height}) => {
+      e.preventDefault()
+
+      let data = {patient: {name: name, email: email, password: password, age: age, weight: weight, sex: sex, height: height}}
+      fetch('http://localhost:3000/patients', {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      }).then((res) => res.json())
+      .then(patient => {
+debugger
+        this.setState({allPatients: [...this.state.allPatients, patient]})
+
+        this.props.history.push(`/patientdash/${patient.id}`)
+      })
+    }
+
   componentDidMount(){
     console.log('im fetching patients')
     fetch('http://localhost:3000/patients')
@@ -206,6 +240,20 @@ addNewSymptom = (symptoms) => {
                   />
                 )
               }} />
+
+
+            <Route path="/signup" render={() => {
+                    return(
+                      <Signup
+                        email={this.state.email}
+                        password={this.state.password}
+                        setEmail={this.setEmailState}
+                        setPassword={this.setPasswordState}
+                        handleSignupSubmit={this.handleSignupSubmit}
+                        currentUser={this.state.currentUser}
+                      />
+                    )
+                  }} />
 
 
 

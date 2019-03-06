@@ -29,7 +29,7 @@ class PatientForm extends React.Component {
               <Form.Control name="info" onChange={this.handleOnChange} as="textarea" rows="3" placeholder="Diarrhea, fever, pain, etc..."/>
             </Form.Group>
             <Form.Group controlId="duration">
-              <Form.Label>Duration:</Form.Label>
+              <Form.Label>Date:</Form.Label>
               <Form.Control name="duration" onChange={this.handleOnChange} type="date" placeholder="MM/DD/YYYY" />
             </Form.Group>
             <Form.Group controlId="severity">
